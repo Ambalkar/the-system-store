@@ -1,4 +1,5 @@
 # The System Store
+<img width="1920" height="1020" alt="Screenshot 2026-02-24 201223" src="https://github.com/user-attachments/assets/de39bee0-5620-4304-b699-18e8d995cc89" />
 
 <img width="1920" height="1020" alt="Screenshot 2026-02-24 200943" src="https://github.com/user-attachments/assets/845be53d-0cbf-4afb-9442-91c645015cfe" />
 
@@ -7,10 +8,6 @@
 <img width="1920" height="1020" alt="Screenshot 2026-02-24 201131" src="https://github.com/user-attachments/assets/672e9c50-7aa6-43f3-a54c-2b93b6feaee4" />
 
 <img width="1920" height="1020" alt="Screenshot 2026-02-24 201202" src="https://github.com/user-attachments/assets/d51484ec-ba46-4ab2-a9c8-c4000947bf42" />
-
-<img width="1920" height="1020" alt="Screenshot 2026-02-24 201223" src="https://github.com/user-attachments/assets/de39bee0-5620-4304-b699-18e8d995cc89" />
-
-
 
 A simple MERN stack e-commerce application with admin and store pages.
 
