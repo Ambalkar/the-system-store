@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function StorePage({ darkMode }) {
   const [products, setProducts] = useState([]);
@@ -25,7 +26,7 @@ function StorePage({ darkMode }) {
 
   const addToCart = (product) => {
     setCart([...cart, product]);
-    alert(`${product.name} added to cart!`);
+    toast.success(`${product.name} added to cart!`);
   };
 
   const removeFromCart = (index) => {
@@ -40,10 +41,10 @@ function StorePage({ darkMode }) {
 
   const checkout = () => {
     if (cart.length === 0) {
-      alert('Your cart is empty!');
+      toast.error('Your cart is empty!');
       return;
     }
-    alert(`Thank you for your purchase! Total: ₹${getCartTotal().toFixed(2)}`);
+    toast.success(`Thank you for your purchase! Total: ₹${getCartTotal().toFixed(2)}`);
     setCart([]);
     setShowCart(false);
   };

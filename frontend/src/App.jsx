@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import AdminPage from './components/AdminPage';
 import StorePage from './components/StorePage';
@@ -73,6 +74,7 @@ function App() {
   return (
     <Router>
       <AuthProvider>
+        <Toaster position="bottom-right" />
         <AppContent />
       </AuthProvider>
     </Router>

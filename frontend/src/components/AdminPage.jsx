@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 
 function AdminPage({ darkMode }) {
@@ -12,7 +13,6 @@ function AdminPage({ darkMode }) {
     image: ''
   });
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
   
   const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
@@ -41,15 +41,14 @@ function AdminPage({ darkMode }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage('');
 
     try {
       await axios.post('/api/products', formData);
-      setMessage('Product added successfully!');
+      toast.success('Product added successfully!');
       setFormData({ name: '', description: '', price: '', image: '' });
       fetchProducts();
     } catch (error) {
-      setMessage('Error adding product: ' + error.message);
+      toast.error('Error adding product: ' + error.message);
     } finally {
       setLoading(false);
     }
@@ -60,8 +59,10 @@ function AdminPage({ darkMode }) {
     
     try {
       await axios.delete(`/api/products/${id}`);
+      toast.success('Product deleted successfully!');
       fetchProducts();
     } catch (error) {
+      toast.error('Error deleting product');
       console.error('Error deleting product:', error);
     }
   };
@@ -114,7 +115,6 @@ function AdminPage({ darkMode }) {
               {loading ? 'Adding...' : 'Add Product'}
             </button>
           </form>
-          {message && <p className="message">{message}</p>}
         </div>
 
         <div className="product-list">

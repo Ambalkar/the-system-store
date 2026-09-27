@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 
 const Signup = () => {
@@ -7,7 +8,6 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   
   const { signup } = useAuth();
@@ -15,23 +15,25 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
 
     if (password !== confirmPassword) {
-      return setError('Passwords do not match');
+      toast.error('Passwords do not match');
+      return;
     }
 
     if (password.length < 6) {
-      return setError('Password must be at least 6 characters');
+      toast.error('Password must be at least 6 characters');
+      return;
     }
 
     setLoading(true);
 
     try {
       await signup(name, email, password);
+      toast.success('Account created successfully!');
       navigate('/');
     } catch (err) {
-      setError(err.response?.data?.message || 'Signup failed. Please try again.');
+      toast.error(err.response?.data?.message || 'Signup failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -41,8 +43,6 @@ const Signup = () => {
     <div className="auth-page">
       <div className="auth-container">
         <h2>Create New Account</h2>
-        
-        {error && <div className="message error">{error}</div>}
         
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
