@@ -7,6 +7,7 @@ function StorePage({ darkMode }) {
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchProducts();
@@ -15,10 +16,15 @@ function StorePage({ darkMode }) {
   const fetchProducts = async () => {
     try {
       setLoading(true);
+      setError(null);
       const response = await axios.get('/api/products');
-      setProducts(response.data);
+      // Ensure we always set an array
+      const data = Array.isArray(response.data) ? response.data : [];
+      setProducts(data);
     } catch (error) {
       console.error('Error fetching products:', error);
+      setError('Could not connect to the server. Please try again later.');
+      setProducts([]);
     } finally {
       setLoading(false);
     }
@@ -51,6 +57,16 @@ function StorePage({ darkMode }) {
 
   if (loading) {
     return <div className="loading">Loading products...</div>;
+  }
+
+  if (error) {
+    return (
+      <div className="store-page">
+        <div className="empty-store">
+          <p>⚠️ {error}</p>
+        </div>
+      </div>
+    );
   }
 
   return (
